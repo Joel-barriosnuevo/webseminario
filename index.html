@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seminario Avanzado JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        body {
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/background-Q8P6nbBFe7iRVMyJynAIVI1gZV6931.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .content-container {
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(5px);
+        }
+        .session-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .session-content.expanded {
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <div class="content-container min-h-screen p-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4 text-center">Ingeniería de Sistemas invita a estudiantes</h1>
+            <h2 class="text-3xl font-semibold mb-8 text-center text-yellow-400">SEMINARIO AVANZADO JAVASCRIPT</h2>
+            
+            <div class="bg-gray-800 rounded-lg p-6 mb-8 shadow-lg">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-blue-400">Calendario del Seminario</h3>
+                <div id="schedule"></div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-lg p-6 shadow-lg mb-8">
+                <h4 class="text-xl font-semibold mb-4 text-center text-green-400">Detalles del Evento</h4>
+                <ul class="space-y-2">
+                    <li class="flex items-center">
+                        <i data-feather="map-pin" class="mr-2 h-5 w-5 text-green-400"></i>
+                        Lugar: Aula Virtual - Microsoft Teams
+                    </li>
+                    <li class="flex items-center">
+                        <i data-feather="users" class="mr-2 h-5 w-5 text-green-400"></i>
+                        Cupo limitado: 50 estudiantes
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="text-center">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded transition-colors duration-200">
+                    Te Esperamos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+
+        const schedule = [
+            {
+                date: "Martes 22 oct",
+                time: "6:30-8:00pm",
+                title: "JavaScript Orientado a Objetos",
+                topics: [
+                    "¿Qué es y cómo trabaja?",
+                    "Clases y objetos: atributos y métodos",
+                    "Instanciación y propiedades",
+                    "Constructores y prototipos",
+                    "Eficiencia y herencia",
+                    "Uso de this, getters y setters",
+                    "Eliminación de propiedades",
+                    "Polimorfismo (sobrecarga)",
+                    "Clases abstractas",
+                    "Módulos (import, export)"
+                ]
+            },
+            {
+                date: "Jueves 24 oct",
+                time: "6:30-8:00pm",
+                title: "Programación asíncrona y promesas",
+                topics: [
+                    "Callbacks",
+                    "Promises",
+                    "async/await",
+                    ".map, .filter, .reduce",
+                    "Desestructuración de arreglos y objetos",
+                    "Ejemplos y ejercicios"
+                ]
+            },
+            {
+                date: "Lunes 28 oct",
+                time: "9-11 am",
+                title: "AJAX y WebSockets",
+                topics: [
+                    "Concepto de AJAX",
+                    "Tecnologías AJAX",
+                    "XMLHttpRequest",
+                    "Axios (npm)",
+                    "Local storage y manejo de archivos de texto",
+                    "Conexión con servidores: Node.js y otros",
+                    "WebSockets: conceptos",
+                    "Socket.IO",
+                    "Cómo utilizar WebSockets con npm"
+                ]
+            },
+            {
+                date: "Jueves 31 oct",
+                time: "6:30-8:00pm",
+                title: "JSON",
+                topics: [
+                    "¿Qué es JSON?",
+                    "Sintaxis y comparación con XML",
+                    "Integración con JavaScript y HTML",
+                    "Aplicaciones cliente-servidor con JSON",
+                    "Peticiones a un servidor",
+                    "Integración con diferentes lenguajes (Java, Python, PHP, TypeScript)",
+                    "Parse",
+                    "JSONP y CORS"
+                ]
+            },
+            {
+                date: "Lunes 04 nov",
+                time: "9-11 am",
+                title: "API REST",
+                topics: [
+                    "Concepto de API y REST",
+                    "Funcionamiento y ejemplos con varias plataformas",
+                    "Errores HTTP",
+                    "Cómo llamar API REST desde JavaScript",
+                    "Uso de Postman",
+                    "Introducción a Spring Boot"
+                ]
+            }
+        ];
+
+        const scheduleContainer = document.getElementById('schedule');
+
+        schedule.forEach((session, index) => {
+            const sessionElement = document.createElement('div');
+            sessionElement.className = 'mb-6 last:mb-0';
+            sessionElement.innerHTML = `
+                <div class="flex items-center justify-between bg-gray-700 p-4 rounded-lg cursor-pointer">
+                    <div>
+                        <h4 class="text-xl font-semibold text-yellow-400">${session.title}</h4>
+                        <p class="text-gray-300 flex items-center mt-2">
+                            <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                            ${session.date}
+                            <i data-feather="clock" class="w-4 h-4 ml-4 mr-2"></i>
+                            ${session.time}
+                        </p>
+                    </div>
+                    <i data-feather="chevron-down" class="w-6 h-6 transition-transform"></i>
+                </div>
+                <div class="session-content mt-4 ml-6 space-y-2">
+                    <ul>
+                        ${session.topics.map(topic => `
+                            <li class="flex items-start">
+                                <i data-feather="chevron-down" class="w-4 h-4 mr-2 mt-1 text-blue-400"></i>
+                                <span>${topic}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+            scheduleContainer.appendChild(sessionElement);
+        });
+
+        feather.replace();
+
+        document.querySelectorAll('.bg-gray-700').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const chevron = header.querySelector('[data-feather="chevron-down"]');
+                content.classList.toggle('expanded');
+                chevron.style.transform = content.classList.contains('expanded') ? 'rotate(180deg)' : 'rotate(0)';
+            });
+        });
+    </script>
+</body>
+</html>
